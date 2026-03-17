@@ -29,7 +29,7 @@ phases:
     commands:
       - echo "==== Post build phase ===="
       - echo "Logging in to Amazon ECR."
-      - aws ecr get-login-password | docker login --username AWS --password-tdin "${ECR_REPOS_DOMAIN}"
+      - aws ecr get-login-password | docker login --username AWS --password-stdin "${ECR_REPOS_DOMAIN}"
       - echo "Docker image ${APP_NAME} pushing to ECR on `date`"
       - docker image push ${ECR_REPOS_URI}:${IMAGE_TAG}
       - echo '[{"name":"app", "imageUri":"'$ECR_REPOS_URI':'$IMAGE_TAG'"}]' > imagedefinitions.json
