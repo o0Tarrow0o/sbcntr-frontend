@@ -11,7 +11,7 @@ phases:
       - export DOCKER_CONTENT_TRUST=1
       - export ECR_REPOS_DOMAIN=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
       - export ECR_REPOS_URI=${ECR_REPOS_DOMAIN}/${APP_NAME}
-      - export IMAGE_TAG=$(echo $CODE_BUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - export IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - echo ECR_REPOS_URI=${ECR_REPOS_URI}
 
   build:
@@ -32,7 +32,7 @@ phases:
       - aws ecr get-login-password | docker login --username AWS --password=stdin "https://${ECR_REPOS_DOMAIN}"
       - echo "Docker image ${APP_NAME} pushing to ECR on `date`"
       - docker image push ${ECR_REPOS_URI}:${IMAGE_TAG}
-      - echo '[{"name":"app", "imageUri":"'$ECR_REPOS_UIR':'$IMAGE_TAG'"}]' > imagedefinitions.json
+      - echo '[{"name":"app", "imageUri":"'$ECR_REPOS_URI':'$IMAGE_TAG'"}]' > imagedefinitions.json
 
 artifacts:
   files:
