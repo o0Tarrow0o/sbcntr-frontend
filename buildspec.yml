@@ -34,6 +34,6 @@ phases:
       - docker image push ${ECR_REPOS_URI}:${IMAGE_TAG}
       - echo '[{"name":"app", "imageUri":"'$ECR_REPOS_UIR':'$IMAGE_TAG'"}]' > imagedefinitions.json
 
-  artifacts:
-    files:
-      - imagedefinitions.json
+    artifacts:
+      files:
+        - imagedefinitions.json
